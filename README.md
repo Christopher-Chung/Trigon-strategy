@@ -4,7 +4,7 @@ This code is unpolished but finished. Acts as a strategy provider to the mobile 
 
 ## How to use
 
-Every turn the scanner takes three lines of input corresponding the the three given shapes. To input, simply type the three shapes in three lines and the resulting placement and sequence will be printed. Coordinates are given in (x,y) with x being row (1~8) and y being column (maximum of y depends on the row, but is 1 indexed for counting ease).
+Compile and execute Trigon. Every turn the scanner takes three lines of input corresponding the the three given shapes. To input, simply type the three shapes in three lines and the resulting placement and sequence will be printed. Coordinates are given in (x,y) with x being row (1~8) and y being column (maximum of y depends on the row, but is 1 indexed for counting ease).
 
 String corresponding to shapes:
   * "up" and "down" for 4-tile triangles
