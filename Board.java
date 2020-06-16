@@ -45,12 +45,6 @@ class Board{
   }
 
   public boolean isOccupied(Coordinate c) throws ArrayIndexOutOfBoundsException{
-    try{
-      b.get(c.row-1).get(c.column-1);
-    }catch (ArrayIndexOutOfBoundsException e){
-      System.out.println(this);
-      System.out.println(c);
-    }
     return b.get(c.row-1).get(c.column-1);
   }
 
@@ -59,87 +53,106 @@ class Board{
   }
 
   public boolean canFit(String shape, Coordinate pivot){
-    if (shape.equals("up") || shape.equals("down")){
-      if (shape.equals("up")){
-        if (pivot.isUp() == false || isOccupied(pivot)) return false;
-        Coordinate center = pivot.goDown();
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        center.column ++;
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        center.column -= 2;
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        return true;
-      }else{
-        if (pivot.isDown() == false || isOccupied(pivot)) return false;
-        Coordinate center = pivot.goUp();
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        center.column ++;
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        center.column -= 2;
-        if (center.inBoard() == false || isOccupied(center)) return false;
-        return true;
-      }
-    }else if (shape.equals("Hor-udud") || shape.equals("Hor-dudu")){
-      if (shape.equals("Hor-udud")){
-        if (pivot.isUp() == false || isOccupied(pivot)) return false;
-        Coordinate c = new Coordinate(pivot.row,pivot.column+1);
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }else{
-        if (pivot.isDown() == false || isOccupied(pivot)) return false;
-        Coordinate c = new Coordinate(pivot.row,pivot.column+1);
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }
-    }else if (shape.equals("L-dudu") || shape.equals("L-udud")){
-      if (shape.equals("L-dudu")){
-        if (pivot.isDown() == false || isOccupied(pivot)) return false;
-        Coordinate c = pivot.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column --;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c = c.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }else{
-        if (pivot.isUp() == false || isOccupied(pivot)) return false;
-        Coordinate c = new Coordinate(pivot.row,pivot.column-1);
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c = c.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column --;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }
-    }else if (shape.equals("R-dudu") || shape.equals("R-udud")){
-      if (shape.equals("R-dudu")){
-        if (pivot.isDown() == false || isOccupied(pivot)) return false;
-        Coordinate c = pivot.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c = c.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }else{
-        if (pivot.isUp() == false || isOccupied(pivot)) return false;
-        Coordinate c = new Coordinate(pivot.row,pivot.column+1);
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c = c.goUp();
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        c.column ++;
-        if (c.inBoard() == false || isOccupied(c)) return false;
-        return true;
-      }
-    }else{
+    if (shape.equals("1-up")){
+      return (pivot.inBoard() && pivot.isUp() && !isOccupied(pivot));
+    }else if (shape.equals("1-down")){
+      return (pivot.inBoard() && pivot.isDown() && !isOccupied(pivot));
+    }else if (shape.equals("up-down")){
+      if (!pivot.inBoard() || !pivot.isUp() || isOccupied(pivot)) return false;
+      if (!pivot.goDown().inBoard() || isOccupied(pivot.goDown())) return false;
+      return true;
+    }else if (shape.equals("3-hor")){
+      if (!pivot.inBoard() || pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column + 1);
+      if (!c.inBoard() || isOccupied(c)) return false;
+      c.column -= 2; if (!c.inBoard() || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("3-r")){
+      if (!pivot.inBoard() || pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column + 1);
+      if (!c.inBoard() || isOccupied(c)) return false;
+      c = c.goUp(); if (!c.inBoard() || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("3-l")){
+      if (!pivot.inBoard() || pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column - 1);
+      if (!c.inBoard() || isOccupied(c)) return false;
+      c = c.goUp(); if (!c.inBoard() || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("4-up")){
+      if (pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate center = pivot.goDown();
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      center.column ++;
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      center.column -= 2;
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      return true;
+    }else if (shape.equals("4-down")){
+      if (pivot.isDown() == false || isOccupied(pivot)) return false;
+      Coordinate center = pivot.goUp();
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      center.column ++;
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      center.column -= 2;
+      if (center.inBoard() == false || isOccupied(center)) return false;
+      return true;
+    }else if (shape.equals("Hor-udud")){
+      if (pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column+1);
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("Hor-dudu")){
+      if (pivot.isDown() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column+1);
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("L-dudu")){
+      if (pivot.isDown() == false || isOccupied(pivot)) return false;
+      Coordinate c = pivot.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column --;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c = c.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("L-udud")){
+      if (pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column-1);
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c = c.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column --;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("R-dudu")){
+      if (!pivot.inBoard() || pivot.isDown() == false || isOccupied(pivot)) return false;
+      Coordinate c = pivot.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c = c.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }else if (shape.equals("R-udud")){
+      if (pivot.isUp() == false || isOccupied(pivot)) return false;
+      Coordinate c = new Coordinate(pivot.row,pivot.column+1);
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c = c.goUp();
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      c.column ++;
+      if (c.inBoard() == false || isOccupied(c)) return false;
+      return true;
+    }
+    else{
       if (pivot.isDown() == false) return false;
       if (shape.charAt(0) == '1' && isOccupied(pivot)) return false;
       Coordinate c = new Coordinate(pivot.row,pivot.column+1);
@@ -169,8 +182,24 @@ class Board{
   public void put(String shape, Coordinate pivot){
     if (shape.charAt(0) != '0') set(pivot,true);
     Coordinate c;
-    if (shape.equals("up") || shape.equals("down")){
-      if (shape.equals("up")){
+    if (shape.equals("3-l")){
+      c = new Coordinate(pivot.row,pivot.column - 1);
+      set(c,true);
+      c = c.goUp(); set(c,true);
+    }else if (shape.equals("3-r")){
+      c = new Coordinate(pivot.row,pivot.column + 1);
+      set(c,true);
+      c = c.goUp(); set(c,true);
+    }else if (shape.equals("3-hor")){
+      c = new Coordinate(pivot.row, pivot.column);
+      c.column ++; set(c,true);
+      c.column -= 2; set(c,true);
+    }else if (shape.equals("up-down")){
+      set(pivot.goDown(),true);
+    }else if (shape.equals("1-up") || shape.equals("1-down")){
+      return;
+    }else if (shape.equals("4-up") || shape.equals("4-down")){
+      if (shape.equals("4-up")){
         c = pivot.goDown();
       }else{
         c = pivot.goUp();
