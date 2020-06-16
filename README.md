@@ -5,6 +5,7 @@ This code is unpolished but finished. Acts as a strategy provider to the mobile 
 ## Updates
 
 6/16: Extended pivots to all testing and boosted performance.
+
 6/16: See the list of shapes by entering <code>CommandList</code>, and allows re-entering if shape is invalid. Improved performance by changing parameters in <code>countscore</code>.
 
 ## How to use
@@ -20,6 +21,8 @@ String corresponding to shapes:
   * "up-down" for 2-tile up-down connected shape; pivot is the upper triangle.
   * "3-l", "3-r" and "3-hor" for 3-tile lines; pivot is the bottom up triangle for "3-l" and "3-r", middle up triangle for "3-hor".
   * Every other shape can be fit in a single 6-tile hexagon; for these shapes, the string is a six-digit binary number corresponding to the six triangles in the hex. The first digit stands for the 12-o'clock down triangle (and also the pivot), and then clockwise from there, with a "1" meaning the triangle is occupied, and "0" otherwise. Example: a 6-tile hex is "111111".
+  
+To see the entire list of shapes, type <code>CommandList</code>.
 
 ## Current algorithm
 
