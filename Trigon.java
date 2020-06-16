@@ -131,7 +131,7 @@ public class Trigon{
     determine(s[1],s[2],s[0],bestSolution);
     determine(s[2],s[1],s[0],bestSolution);
     determine(s[2],s[0],s[1],bestSolution);
-    System.out.println(maxScore);
+    //System.out.println(maxScore);
     for (int i = 0; i < 3; i ++){
       System.out.println(bestSolution[i]);
       board.put(bestSolution[i].piece,bestSolution[i].pivot);
