@@ -1,10 +1,11 @@
 # Trigon-strategy
 
-This code is unpolished but finished. Acts as a strategy provider to the mobile game "Trigon". Right now, yields an average result of 500~700 points which is much better than the average human play.
+This code is unpolished but finished. Acts as a strategy provider to the mobile game "Trigon". Right now, yields an average result of 700~900 points which is much better than the average human play.
 
 ## Updates
 
 6/16: Extended pivots to all testing and boosted performance.
+6/16: See the list of shapes by entering <code>CommandList</code>, and allows re-entering if shape is invalid. Improved performance by changing parameters in <code>countscore</code>.
 
 ## How to use
 
