@@ -1,6 +1,6 @@
 # Trigon-strategy
 
-This code is unpolished but finished. Acts as a strategy provider to the mobile game "Trigon". Right now, yields an average result of ~800 points which is much better than the average human play.
+This code acts as a strategy provider to the mobile game "Trigon". Right now, yields an average result of ~800 points which is much better than the average human play.
 
 ## Updates
 
